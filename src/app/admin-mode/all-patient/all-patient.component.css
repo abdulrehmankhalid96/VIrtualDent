@@ -1,0 +1,17 @@
+.therd {
+  background-color: #0bb5d9;
+  text-align: center;
+  color: white;
+}
+.trow {
+  text-align: center;
+}
+.header {
+  height: 50px;
+  background-color: #0bb5d9;
+  margin: -16px -16px 16px -16px;
+  color: white;
+}
+.box {
+  margin-top: 5px;
+}

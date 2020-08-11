@@ -1,0 +1,476 @@
+<!-- <div class="messagediv" #scrollMe *ngIf="imageModel">
+  <div class="row">
+    <div *ngFor="let msg of messageData">
+      <div
+        class="col-md-5"
+        *ngIf="
+          msg.media_type == 'jpg' ||
+          msg.media_type == 'jpeg' ||
+          msg.media_type == 'png'
+        "
+      >
+        <div class="row">
+          <div class="col-md-6">
+            <img
+              src="assets/img/img/download.jpg"
+              alt="Avatar"
+              style="width: 100%;"
+            />
+          </div>
+
+          <div class="col-md-6">
+            <div class="row">
+              <div class="col-md-12"><p>Title</p></div>
+            </div>
+            <div class="row">
+              <div class="col-md-12"><p>Date:</p></div>
+            </div>
+          </div>
+        </div>
+
+        <img
+          src="{{ responceImgUrl + msg.media_url }}"
+          width="80px"
+          height="60px"
+          (dblclick)="singleclick(msg.media_url, msg.media_type)"
+        />
+      </div>
+    </div>
+  </div>
+  <!-- <div *ngFor="let msg of messageData">
+    <div *ngIf="msg.media_type == ''">
+      <div class="container" *ngIf="msg.user_type == 'doctor'">
+        <img
+          class="DoctorImg"
+          src="assets/img/img/download.jpg"
+          alt="Avatar"
+          style="width: 100%;"
+        />
+        <p>{{ msg.message }}</p>
+        <span class="time-right">{{ msg.date_time_created }}</span>
+      </div>
+      <div class="container darker" *ngIf="msg.user_type == 'patient'">
+        <img
+          src="assets/img/img/istockphoto-509627945-612x612.jpg"
+          alt="Avatar"
+          class="right"
+          style="width: 100%;"
+        />
+        <p>{{ msg.message }}</p>
+        <span class="time-left">{{ msg.date_time_created }}</span>
+      </div>
+    </div>
+    <div
+      *ngIf="
+        msg.media_type == 'jpg' ||
+        msg.media_type == 'jpeg' ||
+        msg.media_type == 'png'
+      "
+    >
+      <div class="container" *ngIf="msg.user_type == 'doctor'">
+        <div class="row">
+          <div class="col-md-4">
+            <img
+              class="DoctorImg"
+              src="assets/img/img/download.jpg"
+              alt="Avatar"
+              style="width: 100%;"
+            />
+          </div>
+          <img
+            src="{{ responceImgUrl + msg.media_url }}"
+            width="80px"
+            height="60px"
+            (dblclick)="singleclick(msg.media_url, msg.media_type)"
+          />
+          <span class="time-right">{{ msg.date_time_created }}</span>
+        </div>
+      </div>
+
+      <div class="container darker" *ngIf="msg.user_type == 'patient'">
+        <div class="row">
+          <div class="col-md-4">
+            <img
+              src="assets/img/img/istockphoto-509627945-612x612.jpg"
+              alt="Avatar"
+              class="right"
+              style="width: 100%;"
+              width="80px"
+              height="60px"
+            />
+            <img
+              src="{{ responceImgUrl + msg.media_url }}"
+              width="80px"
+              height="60px"
+              (dblclick)="singleclick(msg.media_url, msg.media_type)"
+            />
+            <span class="time-left">{{ msg.date_time_created }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="msg.media_type == 'mp4' || msg.media_type == 'avi'">
+      <div class="container" *ngIf="msg.user_type == 'doctor'">
+        <img
+          class="DoctorImg"
+          src="assets/img/img/download.jpg"
+          alt="Avatar"
+          style="width: 100%;"
+        />
+
+        <video width="80px" height="60px" controls>
+          <source src="{{ responceImgUrl + msg.media_url }}" type="video/mp4" />
+        </video>
+        <span class="time-right">{{ msg.date_time_created }}</span>
+      </div>
+      <div class="container darker" *ngIf="msg.user_type == 'patient'">
+        <img
+          src="assets/img/img/istockphoto-509627945-612x612.jpg"
+          alt="Avatar"
+          class="right"
+          style="width: 100%;"
+          width="80px"
+          height="60px"
+        />
+        <video width="80px" height="60px" controls>
+          <source src="{{ responceImgUrl + msg.media_url }}" type="mp4" />
+          This browser doesn't support video tag.
+        </video>
+        <img
+          src="{{ responceImgUrl + msg.media_url }}"
+          width="80px"
+          height="60px"
+        />
+        <span class="time-left">{{ msg.date_time_created }}</span>
+      </div>
+    </div>
+  </div> -->
+<!-- </div> -->
+<div class="mainConteiner" *ngIf="imageModel">
+   <div class="row">
+    <div class="col-md-5 headerrow"></div>
+    <div class="col-md-5 headerrow" style="padding: 0px !important;">
+      <!-- <button class="btn btn-primary mt-1" (click)="uploadSelfie()">
+        Upload Selfie
+      </button> -->
+      <button class="btn btn-primary mt-1" style="float:right" (click)="VideModal()">
+       Record Video
+      </button>
+
+     
+    </div>
+    <div class="col-md-1 headerrow" style="padding: -2px !important;">
+      <span  style="float:right" class="input-group-btn"> 
+        <span class="btn btn-default btn-file mt-1">
+          Browse…
+          <input
+            type="file"
+            id="imgInp"
+            (change)="addfile($event)"
+          />
+        </span>
+      </span> 
+    </div>
+
+    <div class="col-md-1 headerrow" style="padding: 0px !important;">
+     <button  class="btn btn-primary btn-sm mt-2" *ngIf='FileIshere()' (click)='sendbrowsefile()'> <i class="fa fa-paper-plane" aria-hidden="true"></i></button> 
+    </div>
+
+  </div> 
+  <div class="row">
+    <div class="col-md-3 leftcolumn" *ngFor="let msg of messageData" >
+      <!--  -->
+      <div
+       class="card"
+        [class.admincard]='msg.user_id_sender=="50"'  
+        *ngIf="
+          msg.media_type == 'jpg' ||
+          msg.media_type == 'jpeg' ||
+          msg.media_type == 'png'
+        "
+      >
+        <div class="row">
+          <div class="col-md-3">
+            <img
+              src="http://placehold.it/50/55C1E7/fff&text=U"
+              alt="User Avatar"
+              class="img-circle"
+            />
+          </div>
+
+          <div class="col-md-9">
+            <h6>{{ msg.sender_name }}</h6>
+            <small>{{ msg.date_time_created }}</small>
+          </div>
+        </div>
+
+        <div style="height: 200px;">
+          <img
+            src="{{ responceImgUrl + msg.media_url }}"
+            class="fakeimg imageclas"
+            (dblclick)="singleclick(msg.media_url, msg.media_type)"
+          />
+        </div>
+      </div>
+
+      <!-- Video -->
+      <div class="card"    [class.admincard]='msg.user_id_sender=="50"'  *ngIf="msg.media_type == 'mp4'">
+        <div class="row">
+          <div class="col-md-3">
+            <img
+              src="http://placehold.it/50/55C1E7/fff&text=U"
+              alt="User Avatar"
+              class="img-circle"
+            />
+          </div>
+
+          <div class="col-md-9">
+            <h6>{{ msg.sender_name }}</h6>
+            <small>{{ msg.date_time_created }}</small>
+          </div>
+        </div>
+
+        <div style="height: 200px;">
+          <video class="fakeimg" controls>
+            <source
+              src="{{ responceImgUrl + msg.media_url }}"
+              type="video/mp4"
+            />
+          </video>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- <div class="container-fluid mainConteiner" *ngIf="imageModel">
+  <div class="row">
+    <div>
+      <div>
+        <div class="col-md-3 mainCol" *ngFor="let msg of messageData">
+          <div class="panel panel-primary">
+            <div class="panel-body">
+              <ul class="chat">
+                <li class="left clearfix">
+                  <span class="chat-img pull-left">
+                    <img
+                      src="http://placehold.it/50/55C1E7/fff&text=U"
+                      alt="User Avatar"
+                      class="img-circle"
+                    />
+                  </span>
+                  <div class="chat-body clearfix">
+                    <div class="header">
+                      <strong class="primary-font">Jack Sparrow</strong>
+                      <br />
+                      <small class="text-muted"> 12 mins ago</small>
+                    </div>
+
+                    <img
+                      src="assets/img/img/Layer-1186-copy.jpg"
+                      height="200px"
+                      width="100%"
+                      style="margin-top: 16px; margin-left: -40px;"
+                    />
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<!-- <div *ngIf="imageModel" >
+  <form [formGroup]="Message" (ngSubmit)="onsubmit()">
+    <div class="row mt-4">
+      <div class="col-md-10" style="padding-right: 0px;">
+        <textarea
+          style="width: 100%; height: 145px;"
+          formControlName="message"
+          class="form-control"
+          [ngClass]="{
+            'is-invalid': submitted && f.message.errors
+          }"
+        >
+        </textarea>
+        <div *ngIf="submitted && f.message.errors" class="invalid-feedback">
+          <div *ngIf="f.message.errors.required">
+            Message can not be Empty
+          </div>
+        </div>
+      </div>
+      <div class="col-md-1" style="padding-left: 0px;">
+        <div class="image-upload" style="margin-top: 60px;">
+          <input
+            id="file-input"
+            type="file"
+            formControlName="imageInput"
+            (change)="fileProgress($event)"
+          />
+        </div>
+        <button class="btn btn-success" type="submit">
+          <i class="fa fa-paper-plane" aria-hidden="true"></i>
+        </button>
+      </div>
+    </div>
+  </form>
+</div> -->
+
+<div class="row" *ngIf="zoomclick" [class.model]="zoomclick">
+  <div class="row mt-5" *ngIf="mediatypeImg">
+    <div class="col-md-11">
+      <i
+        (click)="closeImg()"
+        style="float: right; color: white; size: 20px;"
+        class="fa fa-times-circle"
+      ></i>
+    </div>
+  </div>
+  <div class="mt-2" style="background-color: #343a40;">
+    <img src="{{ passedSrc }}" width="700px" height="500px" />
+  </div>
+  <div *ngIf="mediatypeVideo">
+    <video width="500" height="300" controls>
+      <source src="{{ passedSrc }}" type="video/mp4" />
+    </video>
+  </div>
+</div>
+
+<modal #myModal>
+  <modal-header>
+    Record Patient Personalized Video
+  </modal-header>
+
+  <modal-content>
+    
+     <div class="row livestreamRow">
+      <div class="col-md-9">
+        <div>
+          <video #video class="vid" autoplay></video>
+        </div>
+        <div>
+          <canvas hidden #canvas class="vid"></canvas>
+          <img src="{{ captureImages }}" height="200px" />
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="row">
+          <div class="col-md-2"></div>
+          <div class="col-md-10">
+            <button
+              style="width: 100%;"
+              class="btn btn-danger"
+              (click)="capture()"
+            >
+              Capture Image
+            </button>
+          </div>
+        </div>
+        <div class="row mt-2">
+          <div class="col-md-2"></div>
+          <div class="col-md-10">
+            <button
+              style="width: 100%;"
+              class="btn btn-success"
+              (click)="NewCapture()"
+            >
+              New Image
+            </button>
+          </div>
+        </div>
+
+        <div class="row mt-2">
+          <div class="col-md-2"></div>
+          <div class="col-md-10">
+            <button
+              style="width: 100%;"
+              class="btn btn-primary"
+              (click)="SendImage()"
+            >
+              Send Image
+            </button>
+          </div>
+        </div>
+      </div>
+    </div> -->
+  </modal-content>
+
+  <modal-footer>
+    Modal footer content goes there.
+  </modal-footer>
+</modal>
+
+<modal #VideoModal>
+  <modal-header>
+    Record Patient Personalized Video
+  </modal-header>
+
+  <modal-content>
+    <div class="row">
+      <div class="col-md-5">
+        <div>
+          <video #videoRecorder class="vid" autoplay></video>
+        </div>
+      </div>
+
+      <div class="col-md-2">
+        <div class="row">
+          <div class="col-md-12 mt-5">
+            <button
+              style="width: 100%;"
+              class="btn btn-danger"
+              (click)="startRecording()"
+            >
+              Start Recording
+            </button>
+          </div>
+        </div>
+        <div class="row mt-2">
+          <div class="col-md-12">
+            <button
+              style="width: 100%;"
+              class="btn btn-success"
+              (click)="stopRecording()"
+            >
+              Stop Recording
+            </button>
+          </div>
+        </div>
+
+        <div class="row mt-2">
+          <div class="col-md-12">
+            <button
+              style="width: 100%;"
+              class="btn btn-primary"
+              (click)="sendVideo()"
+              [disabled]='VideoFileIstrue'
+            >
+              Send Video
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-5" *ngIf="recordedData">
+        <video
+          class="vid"
+          *ngFor="let audio of VideoFiles"
+          controls="true"
+          [src]="audio"
+        ></video>
+      </div>
+    </div>
+ 
+  </modal-content>
+
+  <modal-footer>
+    <button
+    style="width: 100%;"
+    class="btn btn-danger"
+    (click)="closeModal()"
+  >
+   Cancel
+  </button>
+  </modal-footer>
+</modal>

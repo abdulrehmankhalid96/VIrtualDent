@@ -1,0 +1,42 @@
+.Step-1 {
+  background-image: url("assets/img/img/virtual-dentist_bg.jpg");
+
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: bottom;
+  background-color: white;
+}
+.Infosection {
+  padding-top: 27px;
+  padding-left: 35px;
+}
+.Step-1-heading {
+  margin-top: 120px;
+}
+.sub-heading h2 {
+  color: #07a7e3;
+}
+@media only screen and (max-width: 480px) {
+  .Infosection {
+    padding-top: 0px;
+    padding-left: 65px;
+  }
+
+  .Step-1 {
+    background-image: none;
+    background-color: white;
+  }
+  .Step-1-heading {
+    margin-top: 50px;
+    text-align: center;
+  }
+  .Step-1-heading h2 {
+    font-size: 24px;
+  }
+  .sub-heading h2 {
+    text-align: center;
+  }
+  .reg-form h1 {
+    font-size: 28px;
+  }
+}

@@ -1,0 +1,1323 @@
+
+
+
+<div class="animated fadeIn" hidden>
+  <div class="row">
+    <div class="col-2">
+      <h4 class="mt-2">DashBoard</h4>
+    </div>
+  </div>
+  <div class="row mt-3">
+    <div class="col-md-3">
+      <div class="container-fluid" style="
+          width: 100%;
+          height: 120px;
+          background-color: #ffffff;
+          border-radius: 10px;
+        ">
+        <div class="row">
+          <div class="col-md-12">
+            <h6 style="text-align: center; color: #cacaca;" class="mt-3">
+              Patients
+            </h6>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <h3 style="text-align: center;">666</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="container-fluid" style="
+          width: 100%;
+          height: 120px;
+          background-color: #ffffff;
+          border-radius: 10px;
+        ">
+        <div class="row">
+          <div class="col-md-12">
+            <h6 style="text-align: center; color: #cacaca;" class="mt-3">
+              Today Patients Request
+            </h6>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <h3 style="text-align: center;">10</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="container-fluid" style="
+          width: 100%;
+          height: 120px;
+          background-color: #ffffff;
+          border-radius: 10px;
+        ">
+        <div class="row">
+          <div class="col-md-12">
+            <h6 style="text-align: center; color: #cacaca;" class="mt-3">
+              Appointments
+            </h6>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <h3 style="text-align: center;">211</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="container-fluid" style="
+          width: 100%;
+          height: 120px;
+          background-color: #ffffff;
+          border-radius: 10px;
+        ">
+        <div class="row">
+          <div class="col-md-12">
+            <h6 style="text-align: center; color: #cacaca;" class="mt-3">
+              Treatments
+            </h6>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <h3 style="text-align: center;">402</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--/.col-->
+
+    <!--/.col-->
+
+    <!--/.col-->
+  </div>
+
+</div>
+
+<modal #InkateForm>
+  <modal-header> </modal-header>
+
+  <modal-content> </modal-content>
+
+  <modal-footer>
+    <button class="btn btn-success" [disabled]="!Intakefromfield.valid" (click)="submi()">
+      submit
+    </button>
+  </modal-footer>
+</modal>
+
+<modal #stepper>
+  <modal-header> </modal-header>
+
+  <modal-content>
+    <wizard *ngIf='step2'>
+      <wizard-step stepTitle="Step 2">
+        <!-- <small style="font-weight: bold; margin-left: 60px;"
+          >You are just <a style="color: #07a7e3;">one step away</a></small
+        > -->
+      
+
+
+
+
+        <div class="row mt-2 mb-2" style="text-align: center;">
+          <div class="col-md-12">
+            <h4>Patient Intake <a style="font-weight: bold;">Form</a></h4>
+          </div>
+        </div>
+      <form #dynamicForm="ngForm" (ngSubmit)="submitDynamicForm(dynamicForm.value)" >
+        <div class="row" >
+          <ng-template ngFor let-field [ngForOf]="dynamicFormField" let-i="index">
+          <div class="col-6"  *ngIf="field.type=='text' || field.type=='number' " >
+            <label for="">{{field.question_label}}</label>
+            <div>
+              <input name="{{field.question_label}}" type="text" ngModel>
+            </div>
+          </div>
+          <div class="col-12"  *ngIf=" field.type=='radio' " >
+            <label for="">{{field.question_label}}</label>
+            <div >
+              <ng-template ngFor let-currentwork [ngForOf]="toPerson(field.options)" let-j="index">
+                <label >{{currentwork}}</label>
+              <input id="myRadioButton{{i}}{{j}}"   name="{{field.question_label}}" type="radio" value="{{currentwork}}" ngModel >
+              </ng-template>
+            </div>
+            
+          </div>
+          
+          <div class="col-12"  *ngIf=" field.type=='checkbox' " >
+            <label for="">{{field.question_label}}</label>
+            <div >
+              <ng-template ngFor let-currentwork [ngForOf]="toPerson(field.options)" let-j="index">
+                <label for="">{{currentwork}}</label>
+              <input name="myRadioButton{{i}}{{j}}" type="{{field.type}}" [value]="currentwork" (change)="getCheckBox($event,field.question_label)">
+              </ng-template>
+            </div>
+          </div>
+          
+        </ng-template>
+        </div>  
+        <div style="width: 100%;">
+          
+          <div style="float: right !important;padding: 10px;">
+            <button  class="btn btn-success"   nextStep>
+              Skip
+            </button>
+          </div>
+         
+          <div style="float: right !important;padding: 10px;">
+          <button  class="btn btn-success " type="submit" nextStep>
+            Next
+          </button>
+        </div>
+      </div>
+        
+      </form>
+
+        <!-- <div class="row">
+          <div class="col-6"   *ngFor="let field of dynamicFormField ;  let i=index " >
+            <label for="">how are You</label>
+            <div>
+              <input name="myRadioButton" type="text">
+            </div>
+          </div>
+          
+        </div>     
+      <div *ngFor="let field of dynamicFormField ;  let i=index ">
+        <div class="row" *ngIf="field.type=='radio' ">
+          <div class="col-12">
+            <label >whats your age</label>
+            <div>
+              <label> Male
+            <input name="myRadioButton" type="radio" value="male" ></label>
+           <label >Female <input name="myRadioButton" type="radio" value="other"></label>
+          <label> Other<input name="myRadioButton" type="radio" value="female" ></label>
+          </div>
+          </div>
+        </div>
+      </div>
+      <div *ngFor="let field of dynamicFormField ;  let i=index ">
+        <div class="row" *ngIf="field.type=='checkbox'">
+          <div class="col-12">
+            <label >whats your age</label>
+            <div>
+              <label> Male
+            <input name="myRadioButton" type="checkbox" value="male" ></label>
+           <label >Female <input name="myRadioButton" type="checkbox" value="other"></label>
+          <label> Other<input name="myRadioButton" type="checkbox" value="female" ></label>
+          </div>
+          </div>
+        </div>
+      </div> -->
+      
+     
+
+
+
+
+        <!-- intake Form -->
+        <!-- <form [formGroup]="Intakefromfield">
+          <div class="container mb-3">
+            <div class="row">
+              <div class="col-md-3">
+                <label for="Age">Age</label>
+                <input type="text" name="Age" class="form-control" formControlName="Age" />
+              </div>
+
+
+            </div>
+
+            <div class="row">
+              <div class="col-md-6">
+                <label for="Current_condition">Current condition</label>
+                <textarea type="text" name="Current_condition" class="form-control"
+                  formControlName="Current_condition"></textarea>
+              </div>
+             
+                <label for="Medical_history">Medical history</label>
+                <input
+                  name="Medical_history"
+                  type="text"
+                  class="form-control"
+                  placeholder="Medical history:"
+                  formControlName="Medical_history"
+                />
+              </div> 
+            </div>
+            <div class="row">
+              <div class="col-md-3">
+                <label for="Past_dentel_treatment">
+                  Past dentel treatment</label>
+                <input rows="4" name="Past_dentel_treatment" type="text" class="form-control"
+                  formControlName="Past_dental_treatment" />
+              </div>
+
+              <div class="col-md-5">
+                <label for="Medication_for_Current">Any Medication for Current condition</label>
+                <input name="Medication_for_Current" type="text" class="form-control"
+                  formControlName="medication_for_current_condition" />
+              </div>
+            </div>
+            <h5>Medical history:</h5>
+           
+
+            <div class="row mt-2">
+              <div class="col-md-3">
+                <label class="centerlable">High blood pressure</label>
+                <div class="centerlable">
+                  <label class="radio-inline">Yes
+                    <input type="radio" name="blood_pressure" value="Yes" formControlName="blood_pressure" />
+                  </label>
+                  <label class="radio-inline">No
+                    <input type="radio" name="blood_pressure" value="No" formControlName="blood_pressure" />
+                  </label>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <label class="centerlable">Stroke</label>
+                <div class="centerlable">
+                  <label class="radio-inline">Yes
+                    <input type="radio" name="Stroke" value="Yes" formControlName="Stroke" />
+                  </label>
+                  <label class="radio-inline">No
+                    <input type="radio" name="Stroke" value="No" formControlName="Stroke" />
+                  </label>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <label class="centerlable">Heart attack</label>
+                <div class="centerlable">
+                  <label class="radio-inline">Yes
+                    <input type="radio" name="Heart_attack" value="Yes" formControlName="Heart_attack" />
+                  </label>
+                  <label class="radio-inline">No
+                    <input type="radio" name="Heart_attack" value="No" formControlName="Heart_attack" />
+                  </label>
+                </div>
+              </div>
+
+              <div class="col-md-3">
+                <label class="centerlable">Angina</label>
+                <div class="centerlable">
+                  <label class="radio-inline">Yes
+                    <input type="radio" name="Angina" value="Yes" formControlName="Angina" />
+                  </label>
+                  <label class="radio-inline">No
+                    <input type="radio" name="Angina" value="No" formControlName="Angina" />
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-3">
+                <label class="centerlable">Diabetes</label>
+                <div class="centerlable">
+                  <label class="radio-inline">Yes
+                    <input type="radio" name="Diabetes" value="Yes" formControlName="Diabetes" />
+                  </label>
+                  <label class="radio-inline">No
+                    <input type="radio" name="Diabetes" value="No" formControlName="Diabetes" />
+                  </label>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <label class="centerlable">Hepatitis B or C </label>
+                <div class="centerlable">
+                  <label class="radio-inline">Yes
+                    <input type="radio" name="Hepatitis" value="Yes" formControlName="Hepatitis" />
+                  </label>
+                  <label class="radio-inline">No
+                    <input type="radio" name="Hepatitis" value="No" formControlName="Hepatitis" />
+                  </label>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <label class="centerlable">Blood disorder </label>
+                <div class="centerlable">
+                  <label class="radio-inline">Yes
+                    <input type="radio" name="Blood_disorder" value="Yes" formControlName="Blood_disorder" />
+                  </label>
+                  <label class="radio-inline">No
+                    <input type="radio" name="Blood_disorder" value="No" formControlName="Blood_disorder" />
+                  </label>
+                </div>
+              </div>
+
+              <div class="col-md-3">
+                <label class="centerlable">Liver disease </label>
+                <div class="centerlable">
+                  <label class="radio-inline">Yes
+                    <input type="radio" name="Liver_disease" value="Yes" formControlName="Liver_disease" />
+                  </label>
+                  <label class="radio-inline">No
+                    <input type="radio" name="Liver_disease" value="No" formControlName="Liver_disease" />
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-3">
+                <label class="centerlable">Asthma</label>
+                <div class="centerlable">
+                  <label class="radio-inline">Yes
+                    <input type="radio" name="Asthma" value="Yes" formControlName="Asthma" />
+                  </label>
+                  <label class="radio-inline">No
+                    <input type="radio" name="Asthma" value="No" formControlName="Asthma" />
+                  </label>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <label class="centerlable">Inflammatory disorder </label>
+                <div class="centerlable">
+                  <label class="radio-inline">Yes
+                    <input type="radio" name="Inflammatory_disorder" value="Yes"
+                      formControlName="Inflammatory_disorder" />
+                  </label>
+                  <label class="radio-inline">No
+                    <input type="radio" name="Inflammatory_disorder" value="No"
+                      formControlName="Inflammatory_disorder" />
+                  </label>
+                </div>
+              </div>
+
+              <div class="col-md-3">
+                <label class="centerlable">Tuberculosis</label>
+                <div class="centerlable">
+                  <label class="radio-inline">Yes
+                    <input type="radio" name="Tuberculosis" value="Yes" formControlName="Tuberculosis" />
+                  </label>
+                  <label class="radio-inline">No
+                    <input type="radio" name="Tuberculosis" value="No" formControlName="Tuberculosis" />
+                  </label>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <label class="centerlable">Smoking</label>
+                <div class="centerlable">
+                  <label class="radio-inline">Yes
+                    <input type="radio" name="Smoking" value="Yes" formControlName="Smoking" />
+                  </label>
+                  <label class="radio-inline">No
+                    <input type="radio" name="Smoking" value="No" formControlName="Smoking" />
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-5">
+                <p>Are you currently taking any medication</p>
+              </div>
+              <div class="col-md-3">
+                <label class="radio-inline">Yes
+
+                  <input class="Radio" type="radio" value="Yes" name="currently_taking_medication"
+                    (change)="medicationVAl($event)" formControlName="currently_taking_medication" />
+                </label>
+
+                <label class="radio-inline">No
+                  <input class="NO" type="radio" name="currently_taking_medication" value="No"
+                    (change)="medicationVAl($event)" formControlName="currently_taking_medication" />
+                </label>
+              </div>
+
+              <div class="col-md-1">
+                <a>If Yes</a>
+              </div>
+              <div class="col-md-3">
+                <input class="form-control" name="pregnant_mouth" placeholder="Mention Which"
+                  formControlName="which_medication" />
+              </div>
+            </div>
+            <div class="row" *ngIf="femaleSection">
+              <small style="font-weight: bold;">Only for females:</small>
+            </div>
+            <div class="row" *ngIf="femaleSection">
+              <div class="col-md-5">
+                <p>Are you pregnant or trying to get pregnant?</p>
+              </div>
+              <div class="col-md-3">
+                <label class="radio-inline">Yes
+
+                  <input class="Radio" type="radio" value="Yes" name="pregnant_trying_pregnant"
+                    (change)="pergnant_value($event)" formControlName="pregnant_trying_pregnant" />
+                </label>
+
+                <label class="radio-inline">No
+                  <input class="NO" type="radio" name="pregnant_trying_pregnant" value="No"
+                    formControlName="pregnant_trying_pregnant" (change)="pergnant_value($event)" />
+                </label>
+              </div>
+
+              <div class="col-md-1">
+                <a>If Yes</a>
+              </div>
+              <div class="col-md-3">
+                <input class="form-control" name="pregnant_mouth" placeholder="Month" formControlName="pregnant_mouth"
+                  [disabled]="ifpregnantYes" />
+              </div>
+            </div>
+            <div class="row" *ngIf="femaleSection">
+              <div class="col-md-3">
+                <label class="centerlable">Are you nursing </label>
+                <div class="centerlable">
+                  <label class="radio-inline">Yes
+                    <input type="radio" name="nursing" value="Yes" formControlName="nursing" />
+                  </label>
+                  <label class="radio-inline">No
+                    <input type="radio" name="nursing" value="No" formControlName="nursing" />
+                  </label>
+                </div>
+              </div>
+
+              <div class="col-md-9">
+                <label class="centerlable">Are you taking contraceptives
+                </label>
+                <div class="centerlable">
+                  <label class="radio-inline">Yes
+                    <input type="radio" name="contraceptives" value="Yes" formControlName="contraceptives" />
+                  </label>
+                  <label class="radio-inline">No
+                    <input type="radio" name="contraceptives" value="No" formControlName="contraceptives" />
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div class="row mt-2">
+              <div class="col-md-8">
+                <p>
+                  Is there anything we should know about your teeth or overall
+                  health
+                </p>
+              </div>
+              <div class="col-md-4">
+                <input class="form-control" name="should_know_about_teeth" formControlName="should_know_about_teeth" />
+              </div>
+            </div>
+          </div>
+        </form> -->
+        <!--  [disabled]="!Intakefromfield.valid"
+          (click)="submi()" -->
+        
+      </wizard-step>
+     
+      <wizard-step stepTitle="Step 3">
+
+
+        <div class="container">
+          <div class="col-md-12 mt-2 mb-2" style="text-align: center;">
+            <div class="form-group">
+              <h4>
+                Upload Required Documents
+              </h4>
+
+              <div class="row imgcontainer">
+               
+              </div>
+              <div class="row mt-2" style="padding: 0px;">
+                <div c lass="col-md-12" style="width: 100%;">
+                  <p style="padding-right: 25px; color: #07a7e3;">
+                    Instructions: The photos need to be clear so that we are
+                    able to assess your condition accurately. See reference
+                    images for uploading each picture
+                  </p>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-4 lastsection">
+                  <div class="row" style="text-align: center;">
+                    <div class="col-md-12">
+                      <img src="assets/img/img/upload_picture.png" height="70px" />
+                    </div>
+                  </div>
+                  <div class="row" style="text-align: center;">
+                    <div class="col-md-12 textclass">
+                      <p>Upload picture</p>
+                      <p>of concerned tooth.</p>
+                    </div>
+                  </div>
+                  <div class="row" style="text-align: center;">
+                    <div class="col-md-12">
+                      <span class="input-group-btn">
+                        <span class="btn btn-default btn-file">
+                          Browse…
+                          <input type="file" id="imgInp" (change)="addfile($event)" />
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12 fileName">
+                      {{ PicName }}
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12 fileName">
+                      <a class="Link" (click)="RefranceMOdal('image1')">Click here <br />
+                        to view reference image.</a>
+                    </div>
+                  </div>
+                </div>
+          
+                <div class="col-md-4 lastsection">
+                  <div class="row" style="text-align: center;">
+                    <div class="col-md-12">
+                      <img src="assets/img/img/upload_picture.png" height="70px" />
+                    </div>
+                  </div>
+                  <div class="row" style="text-align: center;">
+                    <div class="col-md-12 textclass">
+                      <p>Upload picture</p>
+                      <p>of biting surface of upper teeth .</p>
+                    </div>
+                  </div>
+                  <div class="row" style="text-align: center;">
+                    <div class="col-md-12">
+                      <span class="input-group-btn">
+                        <span class="btn btn-default btn-file">
+                          Browse…
+                          <input type="file" id="imgInp" (change)="addXray($event)" />
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12 fileName">
+                      {{ PicName2 }}
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12 fileName">
+                      <a class="Link" (click)="RefranceMOdal('image2')">Click here <br />
+                        to view reference image</a>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-4 lastsection">
+                  <div class="row" style="text-align: center;">
+                    <div class="col-md-12">
+                      <img src="assets/img/img/upload_picture.png" height="70px" />
+                    </div>
+                  </div>
+                  <div class="row" style="text-align: center;">
+                    <div class="col-md-12 textclass">
+                      <p>Upload</p>
+                      <p>Front picture of your teeth</p>
+                    </div>
+                  </div>
+                  <div class="row" style="text-align: center;">
+                    <div class="col-md-12">
+                      <span class="input-group-btn">
+                        <span class="btn btn-default btn-file">
+                          Browse…
+                          <input type="file" id="imgInp" (change)="Image5($event)" />
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12 fileName">
+                      {{ Image_5_name }}
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12 fileName">
+                      <a class="Link" (click)="RefranceMOdal('front')">Click here <br />
+                        to view reference image</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-4 lastsection">
+                  <div class="row" style="text-align: center;">
+                    <div class="col-md-12">
+                      <img src="assets/img/img/upload_picture.png" height="70px" />
+                    </div>
+                  </div>
+                  <div class="row" style="text-align: center;">
+                    <div class="col-md-12 textclass">
+                      <p>Upload picture</p>
+                      <p>of biting surface of lower teeth.</p>
+                    </div>
+                  </div>
+                  <div class="row" style="text-align: center;">
+                    <div class="col-md-12">
+                      <span class="input-group-btn">
+                        <span class="btn btn-default btn-file">
+                          Browse…
+                          <input type="file" id="imgInp" (change)="Image3($event)" />
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12 fileName">
+                      {{ Image_3_name }}
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12 fileName">
+                      <a class="Link" (click)="RefranceMOdal('image3')">Click here <br />
+                        to view reference image.</a>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4 lastsection">
+                  <div class="row" style="text-align: center;">
+                    <div class="col-md-12">
+                      <img src="assets/img/img/upload_picture.png" height="70px" />
+                    </div>
+                  </div>
+                  <div class="row" style="text-align: center;">
+                    <div class="col-md-12 textclass">
+                      <p>Upload Xray</p>
+
+                    </div>
+                  </div>
+                  <div class="row" style="text-align: center;">
+                    <div class="col-md-12">
+                      <span class="input-group-btn">
+                        <span class="btn btn-default btn-file">
+                          Browse…
+                          <input type="file" id="imgInp" (change)="Image4($event)" />
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12 fileName">
+                      {{ Image_4_name }}
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12 fileName">
+                      <a class="Link" (click)="RefranceMOdal_2()">Click here <br />
+                        to view reference image</a>
+                    </div>
+                  </div>
+                </div>
+               
+              </div>
+              <!-- <div class="input-group">
+                <span class="input-group-btn">
+                  <span class="btn btn-default btn-file">
+                    Browse…
+                    <input
+                      type="file"
+                      id="imgInp"
+                      (change)="addfile2($event)"
+                    />
+                  </span>
+                </span>
+                <input
+                  type="text"
+                  class="form-control"
+                  [(ngModel)]="PicName2"
+                  readonly
+                />
+              </div> -->
+              <!-- <img [src]="localUrl2" class="img-upload" [hidden]="image2here" /> -->
+            </div>
+          </div>
+        </div>
+<!-- (click)="submitMedia()" nextStep -->
+<div style="width: 100%;">
+<div style="float: right;padding: 10px;">
+  <button class="btn btn-success" nextStep   >
+    Skip 
+ </button>
+</div>
+<div style="float: right;padding: 10px;">
+  <button class="btn btn-success" (click)="submitMedia()"   >
+    Next  
+ </button>
+</div>
+
+<div>
+
+</div>
+
+</div>
+        
+       
+      </wizard-step>
+      <wizard-step  stepTitle="Step 4">
+        <div class="container">
+          <div class="col-md-12 mt-2 mb-2" style="text-align: center;">
+        <h4>
+          Record Or Upload Personalized Video
+        </h4>
+
+        <div class="row imgcontainer">
+         
+        </div>
+        <div style="padding: 10px;">
+        <div class="col-md-4 lastsection">
+          <div class="row" style="text-align: center; margin-top: 22px;">
+            <div class="col-md-12">
+              <img src="assets/img/img/video_icon.png" height="50px" />
+            </div>
+          </div>
+  
+          <div class="row" style="text-align: center;">
+            <div class="col-md-12">
+              Upload Video
+            </div>
+          </div>
+          <div class="row" style="text-align: center;">
+            <div class="col-md-12">
+              <span class="input-group-btn">
+                <span class="btn btn-default btn-file">
+                  Browse…
+                  <input type="file" id="imgInp" (change)="VideoInput($event)" />
+                </span>
+              </span>
+            </div>
+          </div>
+          <div class="row" style="text-align: center;">
+            <div class="col-md-12 mt-2">
+              <p>OR</p>
+            </div>
+          </div>
+          <div class="row mt-1" style="text-align: center;">
+            <div class="col-md-12">
+              <button class="btn btn-primary" (click)="VideoModel()">
+                Record Video
+              </button>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12 fileName">
+              {{ RecordedVideoFileName }}
+            </div>
+          </div>
+        </div>
+      </div>
+        </div>
+        </div>
+
+        <div style="width: 100%;">
+       <div style="float: right;padding: 10px;">
+        <button class="btn btn-success"  nextStep>
+          Skip
+        </button>
+       </div>
+       <div style="float: right;padding: 10px;">
+        <button class="btn btn-success"  (click)='submit_single_Media()'>
+         Next
+        </button>
+       </div>
+        </div>
+       
+      </wizard-step>
+      <wizard-step stepTitle="Thank You">
+        <div class="jumbotron text-center">
+          <h1 class="display-3">Thank You!</h1>
+          <p class="lead">
+            <strong>We will get back to you for online consultation within a week.
+              This online consultation takes only few minutes. When you are
+              ready, you can visit us for your treatment. So stop worrying about
+              your dental problem and get the help you need by our highly
+              trained team in safe and relaxing environment.</strong>
+          </p>
+          <hr />
+        </div>
+          <div style="width: 100%;">
+
+          <div style="float: right;padding:10px">
+            <button class="btn btn-success" (click)="Finished()">Finished</button>
+          </div>
+
+          </div>
+       
+        
+      </wizard-step>
+    </wizard>
+
+    <wizard *ngIf='step3'>
+
+      <wizard-step stepTitle="Step 3">
+
+
+        <div class="container">
+          <div class="col-md-12 mt-2 mb-2" style="text-align: center;">
+            <div class="form-group">
+              <h4>
+                Upload Required Documents
+              </h4>
+
+              <div class="row imgcontainer">
+               
+              </div>
+              <div class="row mt-2" style="padding: 0px;">
+                <div c lass="col-md-12" style="width: 100%;">
+                  <p style="padding-right: 25px; color: #07a7e3;">
+                    Instructions: The photos need to be clear so that we are
+                    able to assess your condition accurately. See reference
+                    images for uploading each picture
+                  </p>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-4 lastsection">
+                  <div class="row" style="text-align: center;">
+                    <div class="col-md-12">
+                      <img src="assets/img/img/upload_picture.png" height="70px" />
+                    </div>
+                  </div>
+                  <div class="row" style="text-align: center;">
+                    <div class="col-md-12 textclass">
+                      <p>Upload picture</p>
+                      <p>of concerned tooth.</p>
+                    </div>
+                  </div>
+                  <div class="row" style="text-align: center;">
+                    <div class="col-md-12">
+                      <span class="input-group-btn">
+                        <span class="btn btn-default btn-file">
+                          Browse…
+                          <input type="file" id="imgInp" (change)="addfile($event)" />
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12 fileName">
+                      {{ PicName }}
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12 fileName">
+                      <a class="Link" (click)="RefranceMOdal('image1')">Click here <br />
+                        to view reference image.</a>
+                    </div>
+                  </div>
+                </div>
+          
+                <div class="col-md-4 lastsection">
+                  <div class="row" style="text-align: center;">
+                    <div class="col-md-12">
+                      <img src="assets/img/img/upload_picture.png" height="70px" />
+                    </div>
+                  </div>
+                  <div class="row" style="text-align: center;">
+                    <div class="col-md-12 textclass">
+                      <p>Upload picture</p>
+                      <p>of biting surface of upper teeth .</p>
+                    </div>
+                  </div>
+                  <div class="row" style="text-align: center;">
+                    <div class="col-md-12">
+                      <span class="input-group-btn">
+                        <span class="btn btn-default btn-file">
+                          Browse…
+                          <input type="file" id="imgInp" (change)="addXray($event)" />
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12 fileName">
+                      {{ PicName2 }}
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12 fileName">
+                      <a class="Link" (click)="RefranceMOdal('image2')">Click here <br />
+                        to view reference image</a>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-4 lastsection">
+                  <div class="row" style="text-align: center;">
+                    <div class="col-md-12">
+                      <img src="assets/img/img/upload_picture.png" height="70px" />
+                    </div>
+                  </div>
+                  <div class="row" style="text-align: center;">
+                    <div class="col-md-12 textclass">
+                      <p>Upload</p>
+                      <p>Front picture of your teeth</p>
+                    </div>
+                  </div>
+                  <div class="row" style="text-align: center;">
+                    <div class="col-md-12">
+                      <span class="input-group-btn">
+                        <span class="btn btn-default btn-file">
+                          Browse…
+                          <input type="file" id="imgInp" (change)="Image5($event)" />
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12 fileName">
+                      {{ Image_5_name }}
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12 fileName">
+                      <a class="Link" (click)="RefranceMOdal('front')">Click here <br />
+                        to view reference image</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-4 lastsection">
+                  <div class="row" style="text-align: center;">
+                    <div class="col-md-12">
+                      <img src="assets/img/img/upload_picture.png" height="70px" />
+                    </div>
+                  </div>
+                  <div class="row" style="text-align: center;">
+                    <div class="col-md-12 textclass">
+                      <p>Upload picture</p>
+                      <p>of biting surface of lower teeth.</p>
+                    </div>
+                  </div>
+                  <div class="row" style="text-align: center;">
+                    <div class="col-md-12">
+                      <span class="input-group-btn">
+                        <span class="btn btn-default btn-file">
+                          Browse…
+                          <input type="file" id="imgInp" (change)="Image3($event)" />
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12 fileName">
+                      {{ Image_3_name }}
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12 fileName">
+                      <a class="Link" (click)="RefranceMOdal('image3')">Click here <br />
+                        to view reference image.</a>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4 lastsection">
+                  <div class="row" style="text-align: center;">
+                    <div class="col-md-12">
+                      <img src="assets/img/img/upload_picture.png" height="70px" />
+                    </div>
+                  </div>
+                  <div class="row" style="text-align: center;">
+                    <div class="col-md-12 textclass">
+                      <p>Upload Xray</p>
+
+                    </div>
+                  </div>
+                  <div class="row" style="text-align: center;">
+                    <div class="col-md-12">
+                      <span class="input-group-btn">
+                        <span class="btn btn-default btn-file">
+                          Browse…
+                          <input type="file" id="imgInp" (change)="Image4($event)" />
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12 fileName">
+                      {{ Image_4_name }}
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12 fileName">
+                      <a class="Link" (click)="RefranceMOdal_2()">Click here <br />
+                        to view reference image</a>
+                    </div>
+                  </div>
+                </div>
+               
+              </div>
+              <!-- <div class="input-group">
+                <span class="input-group-btn">
+                  <span class="btn btn-default btn-file">
+                    Browse…
+                    <input
+                      type="file"
+                      id="imgInp"
+                      (change)="addfile2($event)"
+                    />
+                  </span>
+                </span>
+                <input
+                  type="text"
+                  class="form-control"
+                  [(ngModel)]="PicName2"
+                  readonly
+                />
+              </div> -->
+              <!-- <img [src]="localUrl2" class="img-upload" [hidden]="image2here" /> -->
+            </div>
+          </div>
+        </div>
+<!-- (click)="submitMedia()" nextStep -->
+<div style="width: 100%;">
+<div style="float: right;padding: 10px;">
+  <button class="btn btn-success" nextStep   >
+    Skip 
+ </button>
+</div>
+<div style="float: right;padding: 10px;">
+  <button class="btn btn-success" (click)="submitMedia_As_incomplete()"   >
+    Next  
+ </button>
+</div>
+
+<div>
+
+</div>
+
+</div>
+        
+       
+      </wizard-step>
+      <wizard-step  stepTitle="Step 4">
+        <div class="container">
+          <div class="col-md-12 mt-2 mb-2" style="text-align: center;">
+        <h4>
+          Record Or Upload Personalized Video
+        </h4>
+
+        <div class="row imgcontainer">
+         
+        </div>
+        <div style="padding: 10px;">
+        <div class="col-md-4 lastsection">
+          <div class="row" style="text-align: center; margin-top: 22px;">
+            <div class="col-md-12">
+              <img src="assets/img/img/video_icon.png" height="50px" />
+            </div>
+          </div>
+  
+          <div class="row" style="text-align: center;">
+            <div class="col-md-12">
+              Upload Video
+            </div>
+          </div>
+          <div class="row" style="text-align: center;">
+            <div class="col-md-12">
+              <span class="input-group-btn">
+                <span class="btn btn-default btn-file">
+                  Browse…
+                  <input type="file" id="imgInp" (change)="VideoInput($event)" />
+                </span>
+              </span>
+            </div>
+          </div>
+          <div class="row" style="text-align: center;">
+            <div class="col-md-12 mt-2">
+              <p>OR</p>
+            </div>
+          </div>
+          <div class="row mt-1" style="text-align: center;">
+            <div class="col-md-12">
+              <button class="btn btn-primary" (click)="VideoModel()">
+                Record Video
+              </button>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12 fileName">
+              {{ RecordedVideoFileName }}
+            </div>
+          </div>
+        </div>
+      </div>
+        </div>
+        </div>
+
+        <div style="width: 100%;">
+       <div style="float: right;padding: 10px;">
+        <button class="btn btn-success"  nextStep>
+          Skip
+        </button>
+       </div>
+       <div style="float: right;padding: 10px;">
+        <button class="btn btn-success"  (click)='submit_single_Media_As_incomplete_User()'>
+         Next
+        </button>
+       </div>
+        </div>
+       
+      </wizard-step>
+      <wizard-step stepTitle="Thank You">
+        <div class="jumbotron text-center">
+          <h1 class="display-3">Thank You!</h1>
+          <p class="lead">
+            <strong>We will get back to you for online consultation within a week.
+              This online consultation takes only few minutes. When you are
+              ready, you can visit us for your treatment. So stop worrying about
+              your dental problem and get the help you need by our highly
+              trained team in safe and relaxing environment.</strong>
+          </p>
+          <hr />
+        </div>
+          <div style="width: 100%;">
+
+          <div style="float: right;padding:10px">
+            <button class="btn btn-success" (click)="Finished()">Finished</button>
+          </div>
+
+          </div>
+       
+        
+      </wizard-step>
+    </wizard>
+  </modal-content>
+</modal>
+
+<modal #VideoRecoderModel>
+  <modal-header>
+    <h5>
+      Record your personalized video
+    </h5>
+  </modal-header>
+  <modal-content>
+    <div class="row modal-body">
+      <div class="col-md-5">
+        <div>
+          <video #videoRecorder class="vid" autoplay></video>
+        </div>
+      </div>
+
+      <div class="col-md-2">
+        <div class="row mt-1">
+          <div class="col-md-12">
+            <button style="width: 100%;" class="btn btn-danger" (click)="startRecording()">
+              Start Recording
+            </button>
+          </div>
+        </div>
+        <div class="row mt-1">
+          <div class="col-md-12">
+            <button style="width: 100%;" class="btn btn-success" (click)="stopRecording()">
+              Stop Recording
+            </button>
+          </div>
+        </div>
+
+        <div class="row mt-1">
+          <div class="col-md-12">
+            <button style="width: 100%;" class="btn btn-primary" (click)="GetVideoFile()">
+              Attached Video
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-5">
+        <video class="recordedVideo" controls="true" [src]="getSafeUrl()"></video>
+      </div>
+    </div>
+  </modal-content>
+  <modal-footer>
+    <button (click)="closeVideo()" class="btn btn-danger">Close</button>
+  </modal-footer>
+</modal>
+
+<modal #referanceImageModal>
+  <modal-header style="background-color: gray!;">
+    <h5>Referance Image</h5>
+  </modal-header>
+  <modal-content>
+    <div class="row" style="text-align: center;">
+      <div class="col-md-1"></div>
+      <div class="col-md-10">
+        <img style="width: 100%;" [src]="ReferanceImgeUrl" />
+      </div>
+      <div class="col-md-1"></div>
+    </div>
+  </modal-content>
+  <modal-footer></modal-footer>
+</modal>
+<modal #referanceImageModallast>
+  <modal-header style="background-color: gray!;">
+    <h5>Referance Image</h5>
+  </modal-header>
+  <modal-content>
+    <div class="row" style="text-align: center;">
+      <div class="col-md-6">
+        <img style="width: 100%;" [src]="Xray_Img_1" />
+      </div>
+      <div class="col-md-6">
+        <img style="width: 100%;" [src]="Xray_img_2" />
+      </div>
+      <div class="col-md-1"></div>
+    </div>
+  </modal-content>
+  <modal-footer></modal-footer>
+</modal>
+
+<div id="myModal" #myModal class="modal container-fluid">
+  <span class="close" (click)='hiddeBox()'>&times;</span>
+  <div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+      <img class='modal-content' style="height: 50%;" id="img01" [src]="ReferanceImgeUrl">
+      <div class="caption"></div>
+    </div>
+  </div>
+
+  
+  
+</div>
+
+
+<div id="myModal" #XRayModal class="modal container-fluid">
+  <span class="close" (click)='hiddeX_ray_Box()'>&times;</span>
+  <div class="row">
+
+    <div class="col-md-1"></div>
+    <div class="col-md-5">
+      <img style="    width: 100%;
+      height: 80%;"   src="assets/img/img/change_ref_image_2.jpeg">
+      
+    </div>
+
+    <div class="col-md-5">
+      <img  style="    width: 100%;
+      height: 80%;"  src="assets/img/img/change_ref_image.jpeg">
+      
+    </div>
+
+    
+  </div>
+
+  
+  
+</div>
+
+<ngx-spinner
+  bdColor="rgba(0, 0, 0, 0.8)"
+  size="medium"
+  color="#fff"
+  type="timer"
+  [fullScreen]="true"
+  ><p style="color: white;">Loading...</p></ngx-spinner
+>
+

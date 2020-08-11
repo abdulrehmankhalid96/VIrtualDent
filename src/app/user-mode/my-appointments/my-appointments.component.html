@@ -1,0 +1,119 @@
+<div class="row">
+  <div class="col-md-12">
+    <button
+      class="btn btn-danger mb-2"
+      (click)="ngxSmartModalService.getModal('myModal').open()"
+    >
+      Add Appointment
+    </button>
+    <div class="card">
+      <div class="card-header">
+        <i class="fa fa-align-justify"></i> Simple Table
+      </div>
+      <div class="card-body">
+        <table class="table table-bordered table-striped table-sm">
+          <thead>
+            <tr>
+              <th class="therd">Sr#</th>
+              <th class="therd">Name</th>
+              <th class="therd">Date</th>
+              <th class="therd">Time</th>
+              <th class="therd">Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let app of appointments; let i = index">
+              <td class="trow">{{ i + 1 }}</td>
+              <td class="trow">{{ app.first_name + " " + app.last_name }}</td>
+              <td class="trow">{{ app.app_date }}</td>
+              <td class="trow">{{ app.app_time }}</td>
+              <td class="trow">{{ app.app_description }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <!--/.col-->
+  <div class="col-lg-6"></div>
+  <!--/.col-->
+</div>
+
+<ngx-smart-modal #myModal identifier="myModal">
+  <h4>Add Appointment</h4>
+  <form [formGroup]="AppointmentForm" (ngSubmit)="onsubmit()">
+    <div class="container mb-3">
+      <div class="row mb-2">
+        <div class="col-md-5">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Title"
+            formControlName="app_title"
+            [ngClass]="{
+              'is-invalid': submitted && f.app_title.errors
+            }"
+          />
+          <div *ngIf="submitted && f.app_title.errors" class="invalid-feedback">
+            <div *ngIf="f.app_title.errors.required">
+              Title is required
+            </div>
+          </div>
+        </div>
+        <div class="col-md-5">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Description"
+            formControlName="app_description"
+            [ngClass]="{
+              'is-invalid': submitted && f.app_description.errors
+            }"
+          />
+          <div
+            *ngIf="submitted && f.app_description.errors"
+            class="invalid-feedback"
+          >
+            <div *ngIf="f.app_description.errors.required">
+              Description is required
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-5">
+          <input
+            type="date"
+            class="form-control"
+            formControlName="app_date"
+            [ngClass]="{
+              'is-invalid': submitted && f.app_date.errors
+            }"
+          />
+          <div *ngIf="submitted && f.app_date.errors" class="invalid-feedback">
+            <div *ngIf="f.app_date.errors.required">
+              date is required
+            </div>
+          </div>
+        </div>
+        <div class="col-md-5">
+          <input
+            type="time"
+            class="form-control"
+            formControlName="app_time"
+            [ngClass]="{
+              'is-invalid': submitted && f.app_time.errors
+            }"
+          />
+          <div *ngIf="submitted && f.app_time.errors" class="invalid-feedback">
+            <div *ngIf="f.app_time.errors.required">
+              time is required
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button class="btn btn-success" type="submit">submit</button>
+    <button class="btn btn-danger" (click)="myModal.close()">Close</button>
+  </form>
+</ngx-smart-modal>

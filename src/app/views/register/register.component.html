@@ -1,0 +1,341 @@
+<div class="container-fluid Step-1">
+  <div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-6">
+      <div class="row Step-1-heading">
+        <div class="col-md-1"></div>
+        <div class="col-md-10"><h2>How Does This System Work</h2></div>
+      </div>
+      <div class="row sub-heading">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
+          <h2>4 Easy Steps</h2>
+        </div>
+      </div>
+      <div class="ml-5">
+        <div class="row">
+          <div class="col-md-5">
+            <div class="row">
+              <div class="col-md-5">
+                <img src="assets/img/img/registerd_account.png" />
+              </div>
+              <div class="col-md-7 Infosection">
+                <h5>Step-1</h5>
+                <p>Get registered yourself</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-7"></div>
+        </div>
+        <div class="row">
+          <div class="col-md-5">
+            <div class="row">
+              <div class="col-md-5">
+                <img src="assets/img/img/intake_form.png" />
+              </div>
+              <div class="col-md-7 Infosection">
+                <h5>Step-2</h5>
+                <p>Fill intake form</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-7"></div>
+        </div>
+        <div class="row">
+          <div class="col-md-5">
+            <div class="row">
+              <div class="col-md-5">
+                <img src="assets/img/img/upload_picture.png" />
+              </div>
+              <div class="col-md-7 Infosection">
+                <h5>Step-3</h5>
+                <p>Upload pictures and a video</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-7"></div>
+        </div>
+        <div class="row">
+          <div class="col-md-5">
+            <div class="row">
+              <div class="col-md-5">
+                <img src="assets/img/img/response.png" />
+              </div>
+              <div class="col-md-7 Infosection">
+                <h5>Step-4</h5>
+                <p>Quick response form our expert doctors</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-7"></div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="row">
+        <div class="col-md-10">
+          <div class="mt-4">
+            <img src="assets/img/img/registration_bar.png" width="100%" />
+          </div>
+        </div>
+        <div class="col-md-2"></div>
+      </div>
+      <div
+        class="card"
+        style="
+          margin-top: 60px;
+          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
+            0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        "
+      >
+        <div class="card-body reg-form">
+          <form [formGroup]="registrationForm">
+            <h2 style="color: #07a7e3;">Patient Registration</h2>
+            <!-- <p
+              class="text-muted"
+              style="margin-left: 140px; font-weight: bold;"
+            >
+              You are just <a style="color: #07a7e3;">t step away</a>
+            </p> -->
+
+            <div class="row">
+              <div class="col-md-6">
+                <label for="firstname">Fisrt name</label>
+                <input
+                  id="firstname"
+                  type="text"
+                  class="form-control"
+                  placeholder="First name"
+                  autocomplete="username"
+                  formControlName="firstName"
+                  [ngClass]="{
+                    'is-invalid': submitted && f.firstName.errors
+                  }"
+                />
+                <div
+                  *ngIf="submitted && f.firstName.errors"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="f.firstName.errors.required">
+                    First Name is required
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <label for="lastname">Last name</label>
+                <input
+                  id="lastname"
+                  type="text"
+                  class="form-control"
+                  placeholder="last name"
+                  autocomplete="username"
+                  formControlName="lastName"
+                  [ngClass]="{
+                    'is-invalid': submitted && f.lastName.errors
+                  }"
+                />
+                <div
+                  *ngIf="submitted && f.lastName.errors"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="f.lastName.errors.required">
+                    last Name is required
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row mt-4">
+              <div class="col-md-6">
+                <label for="date">Select Date of Birth</label>
+                <input
+                  id="date"
+                  type="date"
+                  class="form-control"
+                  placeholder="Date of birth"
+                  autocomplete="username"
+                  formControlName="DoB"
+                  [ngClass]="{
+                    'is-invalid': submitted && f.DoB.errors
+                  }"
+                />
+                <div *ngIf="submitted && f.DoB.errors" class="invalid-feedback">
+                  <div *ngIf="f.DoB.errors.required">
+                    Date of birth is required
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <label>Gender</label>
+                <div class="row ml-2">
+                  <label class="radio-inline">
+                    <input
+                      type="radio"
+                      name="gender"
+                      value="Male"
+                      formControlName="gender"
+                    />Male
+                  </label>
+                  <label class="radio-inline ml-2">
+                    <input
+                      type="radio"
+                      name="gender"
+                      value="Female"
+                      formControlName="gender"
+                    />Female
+                  </label>
+
+                  <!-- <label>Gender</label> -->
+                  <!-- <select
+                  type="text"
+                  class="form-control"
+                  placeholder="Gender"
+                  formControlName="gender"
+                  [ngClass]="{
+                    'is-invalid': submitted && f.gender.errors
+                  }"
+                >
+                  <option value="">Please select</option>
+                  <option *ngFor="let Gender of Gender" [ngValue]="Gender">{{
+                    Gender
+                  }}</option>
+                </select> -->
+                </div>
+              </div>
+            </div>
+            <div class="row mt-4">
+              <div class="col-md-6">
+                <label for="Email">Email</label>
+                <input
+                  id="Email"
+                  type="text"
+                  class="form-control"
+                  placeholder="Email"
+                  autocomplete="email"
+                  formControlName="email"
+                  [ngClass]="{
+                    'is-invalid': submitted && f.email.errors
+                  }"
+                />
+                <div
+                  *ngIf="submitted && f.email.errors"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="f.email.errors.required">
+                    email Name is required
+                  </div>
+                  <div *ngIf="f.email.errors.email">
+                    Please Enter valid Email
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <label for="phone">Phone</label>
+                <input
+                  id="phone"
+                  type="tel"
+                  class="form-control"
+                  placeholder="phone"
+                  autocomplete="phone"
+                  formControlName="phone"
+                  [ngClass]="{
+                    'is-invalid': submitted && f.phone.errors
+                  }"
+                />
+                <div
+                  *ngIf="submitted && f.phone.errors"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="f.phone.errors.required">
+                    Phone is required
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row mt-4">
+              <div class="col-md-6">
+                <label for="password">Password</label>
+                <input
+                  id="password"
+                  type="password"
+                  class="form-control"
+                  placeholder="Password"
+                  autocomplete="new-password"
+                  formControlName="password"
+                  [ngClass]="{
+                    'is-invalid': submitted && f.password.errors
+                  }"
+                />
+                <div
+                  *ngIf="submitted && f.password.errors"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="f.password.errors.required">
+                    password is required
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <label for="Cpassword">Confirm Password</label>
+                <input
+                  id="Cpassword"
+                  type="password"
+                  class="form-control"
+                  placeholder="Repeat password"
+                  autocomplete="new-password"
+                  formControlName="confirmPassword"
+                  [ngClass]="{
+                    'is-invalid': submitted && f.confirmPassword.errors
+                  }"
+                />
+                <div
+                  *ngIf="submitted && f.confirmPassword.errors"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="f.confirmPassword.errors.required">
+                    Confirm Password is required
+                  </div>
+                  <div *ngIf="f.confirmPassword.errors.confirmedValidator">
+                    Password and Confirm Password must be match.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <button
+              type="submit"
+              class="btn btn-block btn-success mt-5"
+              style="background-color: #07a7e3;"
+              (click)="onsubmit()"
+            >
+              Get Started
+            </button>
+            <div class="row">
+              <div class="col-md-4"></div>
+              <div class="col-md-5">
+                <button
+                  type="button"
+                  style="text-align: center; color: #07a7e3;"
+                  class="btn btn-link px-0"
+                  (click)="tologin()"
+                >
+                  Already If you have an account LOGIN
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-1"></div>
+  </div>
+</div>
+
+<ngx-spinner
+  bdColor="rgba(0, 0, 0, 0.8)"
+  size="medium"
+  color="#fff"
+  type="timer"
+  [fullScreen]="true"
+  ><p style="color: white;">Loading...</p></ngx-spinner
+>

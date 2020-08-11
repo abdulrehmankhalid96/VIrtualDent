@@ -1,0 +1,187 @@
+<button class="btn btn-primary  " type="button" (click)='toggle_function()'>Add Form +</button>
+<form  *ngIf="isToggle">
+    <div class="card" >
+        <div class="card-body">
+            <div class="form-group row">
+                <!--first Name-->
+                <div class="col-md-9">
+                  <label class="col-form-label" for="first_Name"
+                    >Title</label >
+                  <div>
+                    <input   
+                    [(ngModel)]="title"           
+                      type="text"
+                      id="first_name"
+                      class="form-control"
+                      placeholder="Title"
+                      [ngModelOptions]="{standalone: true}"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <div class="col-md-4">
+                  <label class="col-form-label" for="last_name"
+                    >Type</label
+                  >
+                  <div>
+                      <select    
+                      (change)="selected_customer($event)"           
+                      data-live-search="true"
+                      name="ins_company_id"
+                      class="form-control"
+                      [(ngModel)]="typeData"
+                      required
+                    >
+                      <option  value="undefined" selected
+                        >Select Type</option
+                      >
+                      <option *ngFor="let relation of type" [ngValue]="relation.question_type_id">{{
+                        relation.question_type_title
+                      }}</option>
+                    </select>
+
+
+                   
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <label class="col-form-label" for="last_name"
+                    >Required</label
+                  >
+                  <div>  
+                   
+<label class="form-check-inline">
+    <input class="form-check-input" type="radio" name="mode" value="1" 
+        [(ngModel)]="isRequire"> True
+</label>
+<label class="form-check-inline">
+    <input class="form-check-input" type="radio" name="mode" value="0"
+        [(ngModel)]="isRequire"> False
+</label>
+                    <!-- <input    
+                    [ngModelOptions]="{standalone: true}"  
+                    [(ngModel)]="textData"      
+                      type="radio"
+                      id="first_name"
+                      class="form-control"
+                      placeholder="Option Value"
+                      require
+                    /> -->
+
+                   
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <div *ngIf="typeData==2 || typeData==3" class="col-md-3">
+                  <label class="col-form-label" for="first_Name"
+                    >Options</label >
+                  <div>
+                    <input    
+                    [ngModelOptions]="{standalone: true}"  
+                    [(ngModel)]="textData"      
+                      type="text"
+                      id="first_name"
+                      class="form-control"
+                      placeholder="Option Value"
+                      require
+                    />
+                  </div>
+                </div>
+              </div>
+                
+                <!--Last Name-->
+              
+              
+                <!-- <button     
+                  type="submit"
+                  (click)="submit()"
+                  class="btn btn-sm btn-primary mr-1"
+                  style="float: right;">
+                  <i class="fa fa-dot-circle-o"></i> Submit
+                </button>
+                <button     
+                type="submit"
+                (click)="UpdateForm()"
+                class="btn btn-sm btn-primary mr-1"
+                style="float: right;">
+                <i class="fa fa-dot-circle-o"></i> Update
+              </button> -->
+              <button type="submit" *ngIf="isTrue; else notShow" class="btn btn-primary" (click)="submit()">Submit</button> 
+        <button type="submit" *ngIf="isTrue" class="btn btn-secondary" (click)="toggle_function()">Cancel</button> 
+        <ng-template #notShow>
+        <button type="submit" class="btn btn-primary" (click)="UpdateForm()">Update</button> 
+        <button type="submit" class="btn btn-secondary" (click)="toggle_function()">Cancel</button> 
+      </ng-template>
+        <!-- <label>{{title}}</label>  -->
+            
+<!-- <div *ngIf="typeData==2 || typeData==3">
+                <div *ngFor="let currentwork of arrayData">
+                  <label class="customcheck">{{currentwork}}
+                  <input name="myRadioButton" type="{{typeData}}" [value]="currentwork">
+                  <span class="checkmark"></span>
+                  </label>&nbsp;
+                </div>
+             
+              </div> -->
+              <!-- <div *ngIf="typeData=='text' || typeData=='number'">
+                  <input name="myRadioButton" type="{{typeData}}" >
+                  <span class="checkmark"></span>
+                  
+                
+             
+              </div> -->
+            </div>
+        </div>
+</form>
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header">
+        <i class="fa fa-align-justify"></i> Design Form
+        <input type="text"  [(ngModel)]="term" placeholder="Search" style="float: right;">
+      </div>
+      <div class="card-body">
+        <table class="table table-bordered table-striped table-sm">
+          
+          <thead>
+            
+            <tr>
+              <th class="therd">Sr#</th>
+
+              <th class="therd">Label</th>
+              <th class="therd">Type</th>
+              <th class="therd">Options</th>
+              <th class="therd">Is Required</th>
+              <th class="therd">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let app of allDesignForm|  filter:term  | paginate: { itemsPerPage: 10, currentPage: p }; let i = index ">
+              <td class="trow">{{ i + 1 }}</td>
+              <td class="trow">{{ app.question_label}}</td>
+              <td class="trow">{{ app.question_type_title}}</td>
+              <td class="trow">{{ app.options}}</td>
+              <td class="trow" *ngIf="app.isRequired==1">True</td>
+              <td class="trow" *ngIf="app.isRequired==0">False</td>
+              <td class="trow">
+                <span>
+                  <button type="button" class="btn btn-primary btn-sm" (click)='EditForm(app)' >Edit</button>
+                </span>
+                <span>
+                  <button type="button" class="btn btn-danger btn-sm" (click)='DeleteForm(app.question_id)' >Delete</button>   
+                </span>
+              </td>
+            </tr>
+          </tbody>
+          
+        </table>
+        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+      </div>
+    </div>
+  </div>
+  <!--/.col-->
+  <div class="col-lg-6"></div>
+  <!--/.col-->
+</div>

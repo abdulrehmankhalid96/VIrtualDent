@@ -1,0 +1,173 @@
+.btn-file {
+  position: relative;
+  overflow: hidden;
+  background-color: #4dbd74;
+}
+.jumbotron {
+  background-image: url("assets/img/img/call-to-action.png") !important;
+  color: white !important;
+  background-position: right !important;
+}
+.btn-file input[type="file"] {
+  position: absolute;
+  top: 0;
+  right: 0;
+  min-width: 100%;
+  min-height: 100%;
+  font-size: 100px;
+  text-align: right;
+  filter: alpha(opacity=0);
+  opacity: 0;
+  outline: none;
+  background: white;
+  cursor: inherit;
+  display: block;
+}
+
+.img-upload {
+  height: 170px;
+  width: 335px;
+  border: 2px solid gray;
+}
+.vid {
+  height: 234px;
+  width: 100%;
+}
+.recordedVideo {
+  width: 285px;
+  height: 231px;
+}
+.modal-content {
+  width: 1030px !important;
+  margin-left: -107px !important;
+}
+.imgcontainer {
+  width: 100%;
+  height: 140px;
+  background-image: url(https://idealsmile.dentist/wp-content/uploads/2020/05/virtual-dentist_bg.jpg);
+  background-size: cover;
+  background-position: left;
+}
+.numberheader {
+  margin-top: 13px;
+}
+.circle {
+  border: 0.1875em dashed gray;
+  border-radius: 50%;
+
+  height: 4em;
+  width: 5em;
+  text-align: center;
+}
+.infotag {
+  margin-top: 10px;
+  font-size: 13px;
+}
+.lastsection {
+  border: 1px dashed gray;
+  width: 100%;
+
+  height: 250px;
+}
+.modal-body {
+  height: 233px !important;
+}
+.fileName {
+  text-align: center;
+}
+.Link {
+  cursor: pointer;
+  color: #07a7e3 !important;
+}
+.textclass {
+  line-height: 4px;
+  padding-top: 9px;
+}
+
+.myImg {
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.myImg:hover {opacity: 0.7;}
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1100; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100vh; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+  overflow: hidden;
+}
+
+
+
+/* Modal Content (image) */
+.modal-content {
+  margin: auto;
+  display: block;
+  width: 50%;
+  max-width: 700px;
+ 
+}
+
+/* Caption of Modal Image */
+.caption {
+  margin: auto;
+  display: block;
+  width: 80%;
+  max-width: 700px;
+  text-align: center;
+  color: #ccc;
+  padding: 10px 0;
+  height: 150px;
+}
+
+/* Add Animation */
+.modal-content, .caption {  
+  -webkit-animation-name: zoom;
+  -webkit-animation-duration: 0.6s;
+  animation-name: zoom;
+  animation-duration: 0.6s;
+}
+
+@-webkit-keyframes zoom {
+  from {-webkit-transform:scale(0)} 
+  to {-webkit-transform:scale(1)}
+}
+
+@keyframes zoom {
+  from {transform:scale(0)} 
+  to {transform:scale(1)}
+}
+
+/* The Close Button */
+.close {
+  position: absolute;
+  top: 15px;
+  right: 35px;
+  color: #f1f1f1;
+  font-size: 40px;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.close:hover,
+.close:focus {
+  color: #bbb;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* 100% Image Width on Smaller Screens */
+@media only screen and (max-width: 700px){
+  .modal-content {
+    width: 100%;
+  }
+}

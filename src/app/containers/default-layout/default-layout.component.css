@@ -1,0 +1,8 @@
+.custom_header {
+  height: 40px;
+  background-color: aqua;
+  position: fixed;
+}
+.app-body {
+  background: #f6f7fc;
+}

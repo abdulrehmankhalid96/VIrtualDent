@@ -1,0 +1,38 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header">
+        <i class="fa fa-align-justify"></i> Simple Table
+      </div>
+      <div class="card-body">
+        <table class="table table-bordered table-striped table-sm">
+          <thead>
+            <tr>
+              <th class="therd">Sr#</th>
+              <th class="therd">Name</th>
+              <th class="therd">Angina</th>
+              <th class="therd">Blood Disorder</th>
+              <th class="therd">Liver Disease</th>
+              <th class="therd">Asthma</th>
+              <th class="therd">Heart Attack</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let app of intakdata; let i = index">
+              <td class="trow">{{ i + 1 }}</td>
+              <td class="trow">{{ app.first_name + " " + app.last_name }}</td>
+              <td class="trow">{{ app.angina }}</td>
+              <td class="trow">{{ app.blood_disorder }}</td>
+              <td class="trow">{{ app.liver_disease }}</td>
+              <td class="trow">{{ app.asthma }}</td>
+              <td class="trow">{{ app.heart_attack }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <!--/.col-->
+  <div class="col-lg-6"></div>
+  <!--/.col-->
+</div>

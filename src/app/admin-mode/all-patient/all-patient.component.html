@@ -1,0 +1,764 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header">
+        <i class="fa fa-align-justify"></i> All Patients
+        <input type="text"  [(ngModel)]="term" placeholder="Search" style="float: right;">
+      </div>
+      <div class="card-body">
+        <table class="table table-bordered table-striped table-sm">
+          
+          <thead>
+            
+            <tr>
+              <th class="therd">Sr#</th>
+
+              <th class="therd">Name</th>
+              <th class="therd">Gender</th>
+              <th class="therd">Date of Birth</th>
+              <th class="therd">Phone</th>
+              <th class="therd">Email</th>
+              <th class="therd">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let app of Allpatients|  filter:term  | paginate: { itemsPerPage: 10, currentPage: p }; let i = index ">
+              <td class="trow">{{ i + 1 }}</td>
+              <td class="trow">{{ app.first_name + " " + app.last_name }}</td>
+              <td class="trow">{{ app.gender }}</td>
+              <td class="trow">{{ app.date_of_birth }}</td>
+             
+              <td class="trow">{{ app.mobile_number }}</td>
+              <td class="trow">{{ app.user_email }}</td>
+              <td class="trow">
+                <!--(click)='MedicalModal(app)' [disabled]='chackdis(app)'  -->
+                <button type="button" class="btn btn-primary btn-sm" (click)='getMedicalRecordByid(app.patient_id)' >Medical Form</button>
+                <button type="button" class="btn btn-secondary btn-sm" (click)='patientObj(app)' [disabled]='chackfile(app)'>Patients File</button>
+                <button type="button" class="btn btn-secondary btn-sm"  [disabled]="chackfile2(app)" (click)='sendReminder(app)'>Send Reminder</button>
+              </td>
+            </tr>
+          </tbody>
+          
+        </table>
+        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+      </div>
+    </div>
+  </div>
+  <!--/.col-->
+  <div class="col-lg-6"></div>
+  <!--/.col-->
+</div>
+
+
+
+
+
+
+
+
+
+
+<ngx-smart-modal #Modeltwo identifier="Modeltwo" style="z-index: 0 !important;">
+  <div class="header">
+    <div class="row">
+      <div class="col-md-1"></div>
+      <div class="col-md-10 mt-2">
+        <h3>Schedual Appointment</h3>
+      </div>
+    </div>
+  </div>
+  <form [formGroup]="AppointmentForm" (ngSubmit)="onsubmit()">
+    <div class="container mb-3">
+      <div class="row mb-2">
+        <div class="col-md-12">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Description"
+            formControlName="app_description"
+            [ngClass]="{
+              'is-invalid': submitted && f.app_description.errors
+            }"
+          />
+          <div
+            *ngIf="submitted && f.app_description.errors"
+            class="invalid-feedback"
+          >
+            <div *ngIf="f.app_description.errors.required">
+              Description is required
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row mt-2">
+        <div class="col-md-12">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Title"
+            formControlName="app_title"
+            [ngClass]="{
+              'is-invalid': submitted && f.app_title.errors
+            }"
+          />
+          <div *ngIf="submitted && f.app_title.errors" class="invalid-feedback">
+            <div *ngIf="f.app_title.errors.required">
+              Title is required
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row mt-2">
+        <div class="col-md-12">
+          <ejs-datetimepicker
+            class="form-control"
+            style="height: 40px;"
+            formControlName="app_time"
+          ></ejs-datetimepicker>
+        </div>
+      </div>
+
+      <div class="row mt-2">
+        <div class="col-md-12">
+          <textarea
+            placeholder="Notes"
+            style="width: 100%;"
+            class="form-control"
+          ></textarea>
+        </div>
+      </div>
+    </div>
+  </form>
+  <div class="row">
+    <div class="col-md-7"></div>
+    <div class="col-md-5">
+      <button class="btn btn-success" type="submit">submit</button>
+      <button class="btn btn-danger" (click)="Modeltwo.close()">Close</button>
+    </div>
+  </div>
+</ngx-smart-modal>
+
+<ngx-spinner
+  bdColor="rgba(0, 0, 0, 0.8)"
+  size="medium"
+  color="#fff"
+  type="timer"
+  [fullScreen]="true"
+  ><p style="color: white;">Loading...</p></ngx-spinner
+>
+
+<modal #MediaclFrom>
+  <modal-header>
+    <h5>
+      Medial Record
+    </h5>
+  </modal-header>
+  <modal-content>
+    <form [formGroup]="Intakefromfield">
+      <div class="container mb-3">
+        <div class="row">
+          <div class="col-md-3">
+            <label for="Age">Age</label>
+            <input
+              type="text"
+              name="Age"
+              class="form-control"
+              placeholder="Age"
+              formControlName="Age"
+            />
+          </div>
+
+          <div class="col-md-3">
+            <label for="Past_dentel_treatment">
+              Past dentel treatment</label
+            >
+            <input
+              rows="4"
+              name="Past_dentel_treatment"
+              type="text"
+              class="form-control"
+              placeholder="Past dentel treatment"
+              formControlName="Past_dental_treatment"
+            />
+          </div>
+
+          <div class="col-md-5">
+            <label for="Medication_for_Current"
+              >Any Medication for Current condition</label
+            >
+            <input
+              name="Medication_for_Current"
+              type="text"
+              class="form-control"
+              placeholder="Any Medication for Current condition"
+              formControlName="medication_for_current_condition"
+            />
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6">
+            <label for="Current_condition">Current condition</label>
+            <textarea
+              type="text"
+              name="Current_condition"
+              class="form-control"
+              placeholder="Current condition"
+              formControlName="Current_condition"
+            ></textarea>
+          </div>
+          <!-- <div class="col-md-3">
+            <label for="Medical_history">Medical history</label>
+            <input
+              name="Medical_history"
+              type="text"
+              class="form-control"
+              placeholder="Medical history:"
+              formControlName="Medical_history"
+            />
+          </div> -->
+        </div>
+
+        <h5>Medical history:</h5>
+        <!-- <small style="font-weight: bold; margin-left: 60px;"
+          >You are just <a style="color: #07a7e3;">one step away</a></small
+        > -->
+
+        <div class="row mt-2">
+          <div class="col-md-3">
+            <label class="centerlable">High blood pressure</label>
+            <div class="centerlable">
+              <label class="radio-inline"
+                >Yes
+                <input
+                  type="radio"
+                  name="blood_pressure"
+                  value="Yes"
+                  formControlName="blood_pressure"
+                  [checked]='high_blood_pressure=="Yes"'
+                />
+              </label>
+              <label class="radio-inline"
+                >No
+                <input
+                  type="radio"
+                  name="blood_pressure"
+                  value="No"
+                  formControlName="blood_pressure"
+                  [checked]='high_blood_pressure=="No"'
+                />
+              </label>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <label class="centerlable">Stroke</label>
+            <div class="centerlable">
+              <label class="radio-inline"
+                >Yes
+                <input
+                  type="radio"
+                  name="Stroke"
+                  value="Yes"
+                  formControlName="Stroke"
+                  [checked]='stroke=="Yes"'
+                />
+              </label>
+              <label class="radio-inline"
+                >No
+                <input
+                  type="radio"
+                  name="Stroke"
+                  value="No"
+                  formControlName="Stroke"
+                  [checked]='stroke=="No"'
+                />
+              </label>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <label class="centerlable">Heart attack</label>
+            <div class="centerlable">
+              <label class="radio-inline"
+                >Yes
+                <input
+                  type="radio"
+                  name="Heart_attack"
+                  value="Yes"
+                  formControlName="Heart_attack"
+                  [checked]='heart_attack=="Yes"'
+                />
+              </label>
+              <label class="radio-inline"
+                >No
+                <input
+                  type="radio"
+                  name="Heart_attack"
+                  value="No"
+                  formControlName="Heart_attack"
+                  [checked]='heart_attack=="No"'
+                />
+              </label>
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <label class="centerlable">Angina</label>
+            <div class="centerlable">
+              <label class="radio-inline"
+                >Yes
+                <input
+                  type="radio"
+                  name="Angina"
+                  value="Yes"
+                  formControlName="Angina"
+                  [checked]='angina=="Yes"'
+                />
+              </label>
+              <label class="radio-inline"
+                >No
+                <input
+                  type="radio"
+                  name="Angina"
+                  value="No"
+                  [checked]='angina=="No"'
+                  formControlName="Angina"
+                />
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-3">
+            <label class="centerlable">Diabetes</label>
+            <div class="centerlable">
+              <label class="radio-inline"
+                >Yes
+                <input
+                  type="radio"
+                  name="Diabetes"
+                  value="Yes"
+                  [checked]='diabetes=="Yes"'
+                  formControlName="Diabetes"
+                />
+              </label>
+              <label class="radio-inline"
+                >No
+                <input
+                  type="radio"
+                  name="Diabetes"
+                  value="No"
+                  [checked]='diabetes=="No"'
+                  formControlName="Diabetes"
+                />
+              </label>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <label class="centerlable">Hepatitis B or C </label>
+            <div class="centerlable">
+              <label class="radio-inline"
+                >Yes
+                <input
+                  type="radio"
+                  name="Hepatitis"
+                  value="Yes"
+                  formControlName="Hepatitis"
+                  [checked]='hepatitis=="Yes"'
+                />
+              </label>
+              <label class="radio-inline"
+                >No
+                <input
+                  type="radio"
+                  name="Hepatitis"
+                  value="No"
+                  [checked]='hepatitis=="No"'
+                  formControlName="Hepatitis"
+                />
+              </label>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <label class="centerlable">Blood disorder </label>
+            <div class="centerlable">
+              <label class="radio-inline"
+                >Yes
+                <input
+                  type="radio"
+                  name="Blood_disorder"
+                  value="Yes"
+                  [checked]='blood_disorder=="Yes"'
+                  formControlName="Blood_disorder"
+                />
+              </label>
+              <label class="radio-inline"
+                >No
+                <input
+                  type="radio"
+                  name="Blood_disorder"
+                  value="No"
+                  [checked]='blood_disorder=="No"'
+                  formControlName="Blood_disorder"
+                />
+              </label>
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <label class="centerlable">Liver disease </label>
+            <div class="centerlable">
+              <label class="radio-inline"
+                >Yes
+                <input
+                  type="radio"
+                  name="Liver_disease"
+                  value="Yes"
+                  [checked]='liver_disease=="Yes"'
+                  formControlName="Liver_disease"
+                />
+              </label>
+              <label class="radio-inline"
+                >No
+                <input
+                  type="radio"
+                  name="Liver_disease"
+                  value="No"
+                  [checked]='liver_disease=="No"'
+                  formControlName="Liver_disease"
+                />
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-3">
+            <label class="centerlable">Asthma</label>
+            <div class="centerlable">
+              <label class="radio-inline"
+                >Yes
+                <input
+                  type="radio"
+                  name="Asthma"
+                  value="Yes"
+                  [checked]='asthma=="Yes"'
+                  formControlName="Asthma"
+                />
+              </label>
+              <label class="radio-inline"
+                >No
+                <input
+                  type="radio"
+                  name="Asthma"
+                  value="No"
+                  [checked]='asthma=="No"'
+                  formControlName="Asthma"
+                />
+              </label>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <label class="centerlable">Inflammatory disorder </label>
+            <div class="centerlable">
+              <label class="radio-inline"
+                >Yes
+                <input
+                  type="radio"
+                  name="Inflammatory_disorder"
+                  value="Yes"
+                  [checked]='inflammatory_disorder=="Yes"'
+                  formControlName="Inflammatory_disorder"
+                />
+              </label>
+              <label class="radio-inline"
+                >No
+                <input
+                  type="radio"
+                  name="Inflammatory_disorder"
+                  value="No"
+                  [checked]='inflammatory_disorder=="No"'
+                  formControlName="Inflammatory_disorder"
+                />
+              </label>
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <label class="centerlable">Tuberculosis</label>
+            <div class="centerlable">
+              <label class="radio-inline"
+                >Yes
+                <input
+                  type="radio"
+                  name="Tuberculosis"
+                  value="Yes"
+                  [checked]='tuberculosis=="Yes"'
+                  formControlName="Tuberculosis"
+                />
+              </label>
+              <label class="radio-inline"
+                >No
+                <input
+                  type="radio"
+                  name="Tuberculosis"
+                  value="No"
+                  [checked]='tuberculosis=="No"'
+                  formControlName="Tuberculosis"
+                />
+              </label>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <label class="centerlable">Smoking</label>
+            <div class="centerlable">
+              <label class="radio-inline"
+                >Yes
+                <input
+                  type="radio"
+                  name="Smoking"
+                  value="Yes"
+                  [checked]='smoking=="Yes"'
+                  formControlName="Smoking"
+                />
+              </label>
+              <label class="radio-inline"
+                >No
+                <input
+                  type="radio"
+                  name="Smoking"
+                  value="No"
+                  [checked]='smoking=="No"'
+                  formControlName="Smoking"
+                />
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-5">
+            <p>Are you currently taking any medication</p>
+          </div>
+          <div class="col-md-3">
+            <label class="radio-inline"
+              >Yes
+
+              <input
+                class="Radio"
+                type="radio"
+                value="Yes"
+                name="currently_taking_medication"
+               
+                [checked]='anyMedication=="Yes"'
+                formControlName="currently_taking_medication"
+              />
+            </label>
+
+            <label class="radio-inline"
+              >No
+              <input
+                class="NO"
+                type="radio"
+                name="currently_taking_medication"
+                value="No"
+                
+                [checked]='anyMedication=="No"'
+                formControlName="currently_taking_medication"
+              />
+            </label>
+          </div>
+
+          <div class="col-md-1">
+            <a>If Yes</a>
+          </div>
+          <div class="col-md-3">
+            <input
+              class="form-control"
+              name="pregnant_mouth"
+              placeholder="Mention Which"
+              formControlName="which_medication"
+            />
+          </div>
+        </div>
+        <div class="row" *ngIf="femaleSection">
+          <small style="font-weight: bold;">Only for females:</small>
+        </div>
+        <div class="row" *ngIf="femaleSection">
+          <div class="col-md-5">
+            <p>Are you pregnant or trying to get pregnant?</p>
+          </div>
+          <div class="col-md-3">
+            <label class="radio-inline"
+              >Yes
+
+              <input
+                class="Radio"
+                type="radio"
+                value="Yes"
+                name="pregnant_trying_pregnant"
+                (change)="pergnant_value($event)"
+                [checked]='pregnant=="Yes"'
+                formControlName="pregnant_trying_pregnant"
+              />
+            </label>
+
+            <label class="radio-inline"
+              >No
+              <input
+                class="NO"
+                type="radio"
+                name="pregnant_trying_pregnant"
+                value="No"
+                [checked]='pregnant=="No"'
+                formControlName="pregnant_trying_pregnant"
+                (change)="pergnant_value($event)"
+              />
+            </label>
+          </div>
+
+          <div class="col-md-1">
+            <a>If Yes</a>
+          </div>
+          <div class="col-md-3">
+            <input
+              class="form-control"
+              name="pregnant_mouth"
+              placeholder="Month"
+              formControlName="pregnant_mouth"
+              [disabled]="ifpregnantYes"
+            />
+          </div>
+
+        </div>
+        <div class="row" *ngIf="femaleSection">
+          <div class="col-md-3">
+            <label class="centerlable">Are you nursing </label>
+            <div class="centerlable">
+              <label class="radio-inline"
+                >Yes
+                <input
+                  type="radio"
+                  name="nursing"
+                  value="Yes"
+                  [checked]='are_you_nursing=="Yes"'
+                  formControlName="nursing"
+                />
+              </label>
+              <label class="radio-inline"
+                >No
+                <input
+                  type="radio"
+                  name="nursing"
+                  value="No"
+                  [checked]='are_you_nursing=="No"'
+                  formControlName="nursing"
+                />
+              </label>
+            </div>
+          </div>
+
+          <div class="col-md-9">
+            <label class="centerlable"
+              >Are you taking contraceptives
+            </label>
+            <div class="centerlable">
+              <label class="radio-inline"
+                >Yes
+                <input
+                  type="radio"
+                  name="contraceptives"
+                  value="Yes"
+                  [checked]='taking_contraceptives=="Yes"'
+                  formControlName="contraceptives"
+                />
+              </label>
+              <label class="radio-inline"
+                >No
+                <input
+                  type="radio"
+                  name="contraceptives"
+                  value="No"
+                  [checked]='taking_contraceptives=="No"'
+                  formControlName="contraceptives"
+                />
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="row mt-2">
+          <div class="col-md-8">
+            <p>
+              Is there anything we should know about your teeth or overall
+              health
+            </p>
+          </div>
+          <div class="col-md-4">
+            <input
+              class="form-control"
+              name="should_know_about_teeth"
+              formControlName="should_know_about_teeth"
+            />
+          </div>
+        </div>
+      </div>
+    </form>
+  </modal-content>
+  <modal-footer>
+
+  </modal-footer>
+</modal>
+<modal #MedicalResponce>
+  <modal-header>
+    <h5>
+      Medial Record
+    </h5>
+  </modal-header>
+  <modal-content>
+    <div class="row" *ngIf='dataFound; else downblock'>
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">
+            <i class="fa fa-align-justify"></i> Form Submitted by patient/ just For check
+            <input type="text"  [(ngModel)]="term" placeholder="Search" style="float: right;">
+          </div>
+          <div class="card-body">
+            <table class="table table-bordered table-striped table-sm">
+              
+              <thead>
+                
+                <tr >
+                  <th *ngFor="let app of form_questions_labels" class="therd">{{app.question_label}}</th>
+    
+              
+              </thead>
+              <tbody>
+                <tr *ngFor="let app of form_responses_data|  filter:term  | paginate: { itemsPerPage: 10, currentPage: p }; let i = index ">
+                  <td class="trow" *ngFor="let user_responses of app.user_responses">{{ user_responses.response_value}}</td>
+               
+                  
+                 
+                </tr>
+              </tbody>
+              
+            </table>
+            <pagination-controls (pageChange)="p = $event"></pagination-controls>
+          </div>
+        </div>
+      </div>
+      <!--/.col-->
+     
+      <!--/.col-->
+    </div>
+    <ng-template class="row" #downblock>
+         <div class="col-md-12">
+           <h5>No Record Found</h5>
+         </div>
+    </ng-template>
+
+
+  </modal-content>
+  <modal-footer></modal-footer>
+
+</modal>

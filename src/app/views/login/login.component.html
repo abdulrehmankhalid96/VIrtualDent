@@ -1,0 +1,130 @@
+<div
+  class="container-fluid"
+  style="
+    background-image: url('assets/img/img/login_bg.png');
+    height: 751px;
+    background-position: bottom;
+    background-repeat: no;
+  "
+>
+  <div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-3">
+      <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-10 mt-5">
+          <a style="color: #07a7e3; font-size: 45px;">Virtual</a>
+          <a style="font-size: 45px; font-weight: bold;">Dentist</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-4">
+      <div class="card-group">
+        <div
+          class="card"
+          style="
+            margin-top: 30px;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
+              0 6px 20px 0 rgba(0, 0, 0, 0.19);
+          "
+        >
+          <div class="card-body">
+            <form [formGroup]="loginForm" (ngSubmit)="onsubmit()">
+              <h1 style="text-align: center;">LOGIN</h1>
+              <p class="text-muted" style="text-align: center;">
+                LETS GET STARTED
+              </p>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"
+                    ><i class="icon-user"></i
+                  ></span>
+                </div>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Username"
+                  autocomplete="username"
+                  formControlName="email"
+                  [ngClass]="{
+                    'is-invalid': submitted && f.email.errors
+                  }"
+                />
+                <div
+                  *ngIf="submitted && f.email.errors"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="f.email.errors.required">
+                    email is required
+                  </div>
+                </div>
+              </div>
+              <div class="input-group mb-4">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"
+                    ><i class="icon-lock"></i
+                  ></span>
+                </div>
+                <input
+                  type="password"
+                  class="form-control"
+                  placeholder="Password"
+                  autocomplete="current-password"
+                  formControlName="password"
+                  [ngClass]="{
+                    'is-invalid': submitted && f.password.errors
+                  }"
+                />
+                <div
+                  *ngIf="submitted && f.password.errors"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="f.password.errors.required">
+                    password is required
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                  <button
+                    type="submit"
+                    style="width: 100%;"
+                    class="btn btn-primary"
+                  >
+                    Login
+                  </button>
+                </div>
+                <div class="col-md-2"></div>
+              </div>
+              <div class="row">
+                <div class="col-md-4"></div>
+                <div class="col-md-5">
+                  <button
+                    type="button"
+                    style="text-align: center; color: #07a7e3;"
+                    class="btn btn-link px-0"
+                    (click)="toRegistration()"
+                  >
+                    Get Register Yourself
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<ngx-spinner
+  bdColor="rgba(0, 0, 0, 0.8)"
+  size="medium"
+  color="#fff"
+  type="timer"
+  [fullScreen]="true"
+  ><p style="color: white;">Loading...</p></ngx-spinner
+>
